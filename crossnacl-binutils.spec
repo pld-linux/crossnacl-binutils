@@ -1,8 +1,3 @@
-# TODO
-# - fix links:
-#   *** WARNING: identical binaries are copied, not linked:
-#        /usr/x86_64-nacl/bin/ld
-#   and  /usr/bin/x86_64-nacl-ld
 %define		gitver 38c9b31a
 Summary:	Cross NaCL GNU binary utility development utilities - binutils
 Name:		crossnacl-binutils
@@ -17,6 +12,7 @@ BuildRequires:	automake
 BuildRequires:	bash
 BuildRequires:	bison
 BuildRequires:	flex
+BuildRequires:	fslint
 ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -37,7 +33,7 @@ Binutils is a collection of binary utilities, including:
 - addr2line - convert addresses to file and line,
 - nlmconv - convert object code into an NLM.
 
-This package contains the cross version for ALPHA.
+This package contains the cross version for NaCL.
 
 %description -l pl.UTF-8
 Pakiet binutils zawiera zestaw narzędzi umożliwiających kompilację
@@ -45,7 +41,7 @@ programów. Znajdują się tutaj między innymi assembler, konsolidator
 (linker), a także inne narzędzia do manipulowania binarnymi plikami
 programów i bibliotek.
 
-Ten pakiet zawiera wersję skrośną generującą kod dla ALPHA.
+Ten pakiet zawiera wersję skrośną generującą kod dla NaCl.
 
 %prep
 %setup -q -n nacl-binutils-%{version}-git%{gitver}
@@ -91,6 +87,9 @@ install -d $RPM_BUILD_ROOT%{_prefix}
 	mandir=$RPM_BUILD_ROOT%{_mandir} \
 	infodir=$RPM_BUILD_ROOT%{_infodir} \
 	libdir=$RPM_BUILD_ROOT%{_libdir}
+
+# fix copies to be hardlinks (maybe should symlink in the future)
+findup -m $RPM_BUILD_ROOT
 
 # remove these man pages unless we cross-build for win*/netware platforms.
 # however, this should be done in Makefiles.
