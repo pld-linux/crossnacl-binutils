@@ -8,11 +8,11 @@ Group:		Development/Tools
 Source0:	nacl-binutils-%{version}-git%{gitver}.tar.bz2
 # Source0-md5:	baae1be3ea143743e5734b549fa017da
 URL:		http://sources.redhat.com/binutils/
-BuildRequires:	automake
 BuildRequires:	bash
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	fslint
+BuildRequires:	python-modules
 ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
