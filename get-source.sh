@@ -32,9 +32,9 @@ if [ ! -d $package ]; then
 	install -d $package
 	git init
 	git remote add origin $repo_url
-	git fetch --depth 1
+	git fetch --depth 1 origin refs/heads/master:refs/remotes/origin/master
 else
-	git fetch
+	git fetch origin refs/heads/master:refs/remotes/origin/master
 fi
 
 # get src/native_client/tools/REVISIONS directly from svn
