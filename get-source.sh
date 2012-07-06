@@ -29,10 +29,12 @@ nacl_revision=$(awk -F'"' '/nacl_revision.:/{print $4}' DEPS.py)
 export GIT_DIR=$package/.git
 
 if [ ! -d $package ]; then
-	git clone --depth 1 $repo_url $package
+	install -d $package
+	git init
+	git remote add origin $repo_url
+	git fetch --depth 1
 else
 	git fetch
-	git pull origin master
 fi
 
 # get src/native_client/tools/REVISIONS directly from svn
@@ -44,8 +46,9 @@ if grep -Ev '^(#|(LINUX_HEADERS_FOR_NACL|NACL_(BINUTILS|GCC|GDB|GLIBC|NEWLIB))_C
 fi
 . ./NACL_REVISIONS.sh
 
-version=$(awk '/AM_INIT_AUTOMAKE/{v=$NF; sub(/\)/, "",v);print v}' $package/bfd/configure.in)
 githash=$NACL_BINUTILS_COMMIT
+git show $githash:bfd/configure.in > configure.in
+version=$(awk '/AM_INIT_AUTOMAKE/{v=$NF; sub(/\)/, "",v);print v}' configure.in)
 shorthash=git$(git rev-parse --short $githash)
 prefix=$package-$version-$shorthash
 
@@ -59,4 +62,4 @@ bzip2 -9 $prefix.tar
 
 ../dropin $prefix.tar.bz2
 
-rm -f NACL_REVISIONS.sh DEPS.py
+rm -f NACL_REVISIONS.sh DEPS.py configure.in
