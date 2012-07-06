@@ -17,7 +17,6 @@ set -e
 package=nacl-binutils
 repo_url=http://git.chromium.org/native_client/$package.git
 specfile=crossnacl-binutils.spec
-git_update=1
 
 chrome_version=20.0.1132.47
 
