@@ -1,12 +1,13 @@
-%define		gitver 38c9b31a
+%define		gitver f412ed5
 Summary:	Cross NaCL GNU binary utility development utilities - binutils
 Name:		crossnacl-binutils
 Version:	2.20.1
-Release:	0.git%{gitver}
+Release:	1.git%{gitver}
 License:	GPL
 Group:		Development/Tools
 Source0:	nacl-binutils-%{version}-git%{gitver}.tar.bz2
-# Source0-md5:	baae1be3ea143743e5734b549fa017da
+# Source0-md5:	b49c25e5cb1bbfb5333aa82bcbda12df
+Source1:	get-source.sh
 URL:		http://sources.redhat.com/binutils/
 BuildRequires:	bash
 BuildRequires:	bison
