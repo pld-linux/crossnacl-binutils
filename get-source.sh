@@ -49,11 +49,11 @@ fi
 githash=$NACL_BINUTILS_COMMIT
 git show $githash:bfd/configure.in > configure.in
 version=$(awk '/AM_INIT_AUTOMAKE/{v=$NF; sub(/\)/, "",v);print v}' configure.in)
-shorthash=git$(git rev-parse --short $githash)
-prefix=$package-$version-$shorthash
+shorthash=$(git rev-parse --short $githash)
+prefix=$package-$version-git$shorthash
 
 if [ -f $prefix.tar.bz2 ]; then
-	echo "Tarball $prefix.tar.bz2 already exists"
+	echo "Tarball $prefix.tar.bz2 already exists at $shorthash"
 	exit 0
 fi
 
