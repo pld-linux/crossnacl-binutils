@@ -29,7 +29,7 @@ nacl_revision=$(awk -F'"' '/nacl_revision.:/{print $4}' DEPS.py)
 export GIT_DIR=$package/.git
 
 if [ ! -d $package ]; then
-	git clone --depth 10 $repo_url $package
+	git clone --depth 1 $repo_url $package
 else
 	git fetch
 	git pull origin master
