@@ -1,7 +1,6 @@
 #!/bin/sh
 # Make snapshot of nacl-binutils
 # Author: Elan Ruusamäe <glen@pld-linux.org>
-# $Id$
 set -e
 
 # Generated from git
@@ -16,14 +15,14 @@ set -e
 
 package=nacl-binutils
 repo_url=http://git.chromium.org/native_client/$package.git
+nacl_trunk=http://src.chromium.org/native_client/trunk
+omahaproxy_url=https://omahaproxy.appspot.com
 specfile=crossnacl-binutils.spec
 
-chrome_version=20.0.1132.47
-
-chrome_revision=$(curl -s https://omahaproxy.appspot.com/revision?version=$chrome_version)
+chrome_channel=stable
+chrome_version=$(curl -s "$omahaproxy_url/?os=linux&channel=$chrome_channel" | awk -F, 'NR > 1{print $3}')
+chrome_revision=$(curl -s $omahaproxy_url/revision?version=$chrome_version)
 chrome_branch=$(IFS=.; set -- $chrome_version; echo $3)
-test -e DEPS.py || svn cat http://src.chromium.org/chrome/branches/$chrome_branch/src/DEPS@$chrome_revision > DEPS.py
-nacl_revision=$(awk -F'"' '/nacl_revision.:/{print $4}' DEPS.py)
 
 export GIT_DIR=$package/.git
 
@@ -37,7 +36,7 @@ else
 fi
 
 # get src/native_client/tools/REVISIONS directly from svn
-test -e NACL_REVISIONS.sh || svn cat https://src.chromium.org/native_client/trunk/src/native_client/tools/REVISIONS@$nacl_revision > NACL_REVISIONS.sh
+test -e NACL_REVISIONS.sh || svn cat $nacl_trunk/src/native_client/tools/REVISIONS@$nacl_revision > NACL_REVISIONS.sh
 
 if grep -Ev '^(#|(LINUX_HEADERS_FOR_NACL|NACL_(BINUTILS|GCC|GDB|GLIBC|NEWLIB))_COMMIT=[0-9a-f]+$|)' NACL_REVISIONS.sh >&2; then
 	echo >&2 "I refuse to execute grabbed file for security concerns"
