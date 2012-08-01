@@ -19,11 +19,6 @@ nacl_trunk=http://src.chromium.org/native_client/trunk
 omahaproxy_url=https://omahaproxy.appspot.com
 specfile=crossnacl-binutils.spec
 
-chrome_channel=stable
-chrome_version=$(curl -s "$omahaproxy_url/?os=linux&channel=$chrome_channel" | awk -F, 'NR > 1{print $3}')
-chrome_revision=$(curl -s $omahaproxy_url/revision?version=$chrome_version)
-chrome_branch=$(IFS=.; set -- $chrome_version; echo $3)
-
 export GIT_DIR=$package/.git
 
 if [ ! -d $package ]; then
@@ -52,6 +47,7 @@ prefix=$package-$version-git$shorthash
 
 if [ -f $prefix.tar.bz2 ]; then
 	echo "Tarball $prefix.tar.bz2 already exists at $shorthash"
+	rm -f NACL_REVISIONS.sh DEPS.py configure.in
 	exit 0
 fi
 
