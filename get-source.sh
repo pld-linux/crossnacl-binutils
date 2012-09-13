@@ -21,10 +21,13 @@ specfile=crossnacl-binutils.spec
 
 chrome_channel=stable
 chrome_version=$(curl -s "$omahaproxy_url/?os=linux&channel=$chrome_channel" | awk -F, 'NR > 1{print $3}')
+test -n "$chrome_version"
 chrome_revision=$(curl -s $omahaproxy_url/revision?version=$chrome_version)
+test -n "$chrome_revision"
 chrome_branch=$(IFS=.; set -- $chrome_version; echo $3)
 test -e DEPS.py || svn cat http://src.chromium.org/chrome/branches/$chrome_branch/src/DEPS@$chrome_revision > DEPS.py
 nacl_revision=$(awk -F'"' '/nacl_revision.:/{print $4}' DEPS.py)
+test -n "$nacl_revision"
 
 export GIT_DIR=$package/.git
 
