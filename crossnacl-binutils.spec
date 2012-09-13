@@ -5,7 +5,7 @@ Version:	2.20.1
 Release:	2.git%{gitver}
 License:	GPL
 Group:		Development/Tools
-Source0:	nacl-binutils-%{version}-git%{gitver}.tar.bz2
+Source0:	nacl-binutils-%{version}-git%{gitver}.tar.xz
 # Source0-md5:	b49c25e5cb1bbfb5333aa82bcbda12df
 Source1:	get-source.sh
 URL:		http://sources.redhat.com/binutils/
@@ -14,6 +14,8 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	fslint
 BuildRequires:	python-modules
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 

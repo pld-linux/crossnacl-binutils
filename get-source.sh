@@ -56,15 +56,15 @@ version=$(awk '/AM_INIT_AUTOMAKE/{v=$NF; sub(/\)/, "",v);print v}' configure.in)
 shorthash=$(git rev-parse --short $githash)
 prefix=$package-$version-git$shorthash
 
-if [ -f $prefix.tar.bz2 ]; then
-	echo "Tarball $prefix.tar.bz2 already exists at $shorthash"
+if [ -f $prefix.tar.xz ]; then
+	echo "Tarball $prefix.tar.xz already exists at $shorthash"
 	rm -f NACL_REVISIONS.sh DEPS.py configure.in
 	exit 0
 fi
 
 git archive $githash --prefix $prefix/ > $prefix.tar
-bzip2 -9 $prefix.tar
+xz -9 $prefix.tar
 
-../dropin $prefix.tar.bz2
+../dropin $prefix.tar.xz
 
 rm -f NACL_REVISIONS.sh DEPS.py configure.in
