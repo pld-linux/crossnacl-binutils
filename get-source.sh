@@ -19,7 +19,7 @@ nacl_trunk=http://src.chromium.org/native_client/trunk
 omahaproxy_url=https://omahaproxy.appspot.com
 specfile=crossnacl-binutils.spec
 
-chrome_channel=stable
+chrome_channel=${1:-stable}
 chrome_version=$(curl -s "$omahaproxy_url/?os=linux&channel=$chrome_channel" | awk -F, 'NR > 1{print $3}')
 test -n "$chrome_version"
 chrome_revision=$(curl -s $omahaproxy_url/revision?version=$chrome_version)
