@@ -16,7 +16,7 @@ set -e
 package=nacl-binutils
 repo_url=http://git.chromium.org/native_client/$package.git
 nacl_trunk=http://src.chromium.org/native_client/trunk
-omahaproxy_url=https://omahaproxy.appspot.com
+omahaproxy_url=http://omahaproxy.appspot.com
 specfile=crossnacl-binutils.spec
 
 chrome_channel=${1:-stable}
