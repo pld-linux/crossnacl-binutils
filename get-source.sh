@@ -55,16 +55,16 @@ git show $githash:bfd/configure.in > configure.in
 version=$(awk '/AM_INIT_AUTOMAKE/{v=$NF; sub(/\)/, "",v);print v}' configure.in)
 shorthash=$(git rev-parse --short $githash)
 prefix=$package-$version-git$shorthash
+archive=$prefix.tar.xz
 
-if [ -f $prefix.tar.xz ]; then
-	echo "Tarball $prefix.tar.xz already exists at $shorthash"
+if [ -f $archive ]; then
+	echo "Tarball $archive already exists at $shorthash"
 	rm -f NACL_REVISIONS.sh DEPS.py configure.in
 	exit 0
 fi
 
-git archive $githash --prefix $prefix/ > $prefix.tar
-xz -9 $prefix.tar
+git -c tar.tar.xz.command="xz -9c" archive $githash --prefix $prefix/ -o $archive
 
-../dropin $prefix.tar.xz
+../dropin $archive
 
 rm -f NACL_REVISIONS.sh DEPS.py configure.in
