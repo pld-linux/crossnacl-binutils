@@ -1,12 +1,12 @@
-%define		gitver e0648d3
+%define		gitver bd55408
 Summary:	Cross NaCL GNU binary utility development utilities - binutils
 Name:		crossnacl-binutils
 Version:	2.20.1
-Release:	3.git%{gitver}.1
+Release:	4.git%{gitver}.1
 License:	GPL
 Group:		Development/Tools
 Source0:	nacl-binutils-%{version}-git%{gitver}.tar.xz
-# Source0-md5:	b49c25e5cb1bbfb5333aa82bcbda12df
+# Source0-md5:	6970752492880c59be545c39f433edeb
 Source1:	get-source.sh
 URL:		http://git.chromium.org/gitweb/?p=native_client/nacl-binutils.git
 BuildRequires:	bash
@@ -84,7 +84,6 @@ CONFIG_SHELL="/bin/bash" \
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_prefix}
-
 %{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	mandir=$RPM_BUILD_ROOT%{_mandir} \
@@ -117,4 +116,4 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{arch}/lib
 %dir %{arch}/lib/*
 %{arch}/lib/ldscripts/*
-%{_mandir}/man?/%{target}-*
+%{_mandir}/man1/%{target}-*.1*
