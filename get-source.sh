@@ -14,7 +14,7 @@ set -e
 # tar cfj nacl-binutils-2.20.1-git73acd6f.tar.bz2 nacl-binutils-2.20.1-git73acd6f
 
 package=nacl-binutils
-repo_url=http://git.chromium.org/native_client/$package.git
+repo_url=https://chromium.googlesource.com/native_client/$package
 nacl_trunk=http://src.chromium.org/native_client/trunk
 omahaproxy_url=http://omahaproxy.appspot.com
 specfile=crossnacl-binutils.spec
@@ -52,7 +52,7 @@ fi
 
 githash=$NACL_BINUTILS_COMMIT
 git show $githash:bfd/configure.in > configure.in
-version=$(awk '/AM_INIT_AUTOMAKE/{v=$NF; sub(/\)/, "",v);print v}' configure.in)
+version=$(awk '/AC_INIT/{v=$2; gsub(/[\[\])]*/, "",v);print v}' configure.in)
 shorthash=$(git rev-parse --short $githash)
 prefix=$package-$version-git$shorthash
 archive=$prefix.tar.xz

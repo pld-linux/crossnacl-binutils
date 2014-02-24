@@ -1,14 +1,15 @@
-%define		gitver bd55408
+%define		rel		1
+%define		gitver	7dc2f25
 Summary:	Cross NaCL GNU binary utility development utilities - binutils
 Name:		crossnacl-binutils
-Version:	2.20.1
-Release:	4.git%{gitver}.1
+Version:	2.24
+Release:	0.git%{gitver}.%{rel}
 License:	GPL
 Group:		Development/Tools
 Source0:	nacl-binutils-%{version}-git%{gitver}.tar.xz
-# Source0-md5:	6970752492880c59be545c39f433edeb
+# Source0-md5:	62c1372814f7873be066fe316fbe1c9c
 Source1:	get-source.sh
-URL:		http://git.chromium.org/gitweb/?p=native_client/nacl-binutils.git
+URL:		https://chromium.googlesource.com/native_client/nacl-binutils/
 BuildRequires:	bash
 BuildRequires:	bison
 BuildRequires:	flex
@@ -97,11 +98,8 @@ findup -m $RPM_BUILD_ROOT
 # however, this should be done in Makefiles.
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/{*dlltool,*nlmconv,*windres}.1
 
-# don't want this here
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libiberty.a
-
 # packaged in base binutils
-%{__rm} -r $RPM_BUILD_ROOT%{_infodir}
+%{__rm} -rv $RPM_BUILD_ROOT%{_infodir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
