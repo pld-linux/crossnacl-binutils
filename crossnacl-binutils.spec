@@ -15,7 +15,7 @@ BuildRequires:	bash
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	fslint
-BuildRequires:	perl-base
+BuildRequires:	perl-tools-pod
 BuildRequires:	python-modules
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
