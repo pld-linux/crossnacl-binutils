@@ -1,0 +1,11 @@
+--- nacl-binutils-2.24-git7dc2f25/etc/texi2pod.pl.orig	2013-12-02 18:13:52.000000000 +0100
++++ nacl-binutils-2.24-git7dc2f25/etc/texi2pod.pl	2018-07-29 16:19:06.069358300 +0200
+@@ -311,7 +311,7 @@
+ 	@columns = ();
+ 	for $column (split (/\s*\@tab\s*/, $1)) {
+ 	    # @strong{...} is used a @headitem work-alike
+-	    $column =~ s/^\@strong{(.*)}$/$1/;
++	    $column =~ s/^\@strong\{(.*)\}$/$1/;
+ 	    push @columns, $column;
+ 	}
+ 	$_ = "\n=item ".join (" : ", @columns)."\n";
