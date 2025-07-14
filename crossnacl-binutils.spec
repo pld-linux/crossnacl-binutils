@@ -52,7 +52,7 @@ Ten pakiet zawiera wersję skrośną generującą kod dla NaCl.
 
 %prep
 %setup -q -n nacl-binutils-%{version}-git%{gitver}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 # ldscripts won't be generated properly if SHELL is not bash...
