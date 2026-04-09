@@ -1,4 +1,4 @@
-%define		rel	3
+%define		rel	4
 %define		gitver	7dc2f25
 Summary:	Cross NaCL GNU binary utility development utilities - binutils
 Name:		crossnacl-binutils
